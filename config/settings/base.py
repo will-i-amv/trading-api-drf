@@ -5,15 +5,14 @@ from pathlib import Path
 
 import environ
 
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# trading_api/
-APPS_DIR = BASE_DIR / "trading_api"
-env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(str(BASE_DIR / ".env"))
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
+APPS_DIR = BASE_DIR / "trading_api"
+ENVS_DIR = BASE_DIR / '.envs' / '.local'
+
+env = environ.Env()
+env.read_env(str(ENVS_DIR / '.django'))
+env.read_env(str(ENVS_DIR / '.postgres'))
 
 # GENERAL
 # ------------------------------------------------------------------------------
