@@ -1,5 +1,10 @@
 from .base import *  # noqa
-from .base import env
+
+
+ENVS_DIR = BASE_DIR / '.envs' / '.production'
+env = environ.Env()
+env.read_env(str(ENVS_DIR / '.django'))
+env.read_env(str(ENVS_DIR / '.postgres'))
 
 # GENERAL
 # ------------------------------------------------------------------------------

@@ -1,27 +1,40 @@
-# trading_api_drf
+# Trading API - DRF
 
-A trading API implemented with Django REST Framework.
+A trading API implemented with Django REST Framework, to simulate the functionality of a site like [TradingView](https://www.tradingview.com/)
 
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-License: MIT
+## Setup
 
-## Settings
+### Local setup
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+- Clone this repo:
 
-## Basic Commands
+      $ git clone https://github.com/will-i-amv/trading-api-drf
 
-### Setting Up Your Users
+- Create and activate your virtual environment:
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+      $ python -m venv env
+      $ source env/bin/activate
 
-- To create a **superuser account**, use this command:
+- Install dependencies:
+
+      $ pip install -r requirements/local.txt
+
+- Apply initial migration:
+
+      $ python manage.py migrate
+
+- Create a **superuser account**:
 
       $ python manage.py createsuperuser
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+- Run development server:
+
+      $ python manage.py runserver
+
+## Run Checks
 
 ### Type checks
 
@@ -41,14 +54,6 @@ To run the tests, check your test coverage, and generate an HTML coverage report
 
     $ pytest
 
-### Live reloading and Sass CSS compilation
+## License
 
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
-
-## Deployment
-
-The following details how to deploy this application.
-
-### Heroku
-
-See detailed [cookiecutter-django Heroku documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-on-heroku.html).
+MIT License.

@@ -5,15 +5,14 @@ from pathlib import Path
 
 import environ
 
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# trading_api/
-APPS_DIR = BASE_DIR / "trading_api"
-env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(str(BASE_DIR / ".env"))
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
+APPS_DIR = BASE_DIR / "trading_api"
+ENVS_DIR = BASE_DIR / '.envs' / '.local'
+
+env = environ.Env()
+env.read_env(str(ENVS_DIR / '.django'))
+env.read_env(str(ENVS_DIR / '.postgres'))
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -47,10 +46,14 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db(
-        "DATABASE_URL",
-        default="postgres:///trading_api",
-    ),
+    "default": {
+        "ENGINE":"django.db.backends.postgresql",
+        "HOST": env.str("POSTGRES_HOST"),
+        "PORT": env.str("POSTGRES_PORT"),
+        "USER": env.str("POSTGRES_USER"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD"),
+        "NAME":env.str("POSTGRES_DB"),
+    }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
